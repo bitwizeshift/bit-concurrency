@@ -1,0 +1,68 @@
+#########################
+# project configuration #
+#########################
+
+version: '{build}'
+
+os:
+  - Visual Studio 2017
+
+################
+# build matrix #
+################
+
+environment:
+  matrix:
+  - additional_flags: ""
+  - additional_flags: "/permissive- /std:c++latest"
+
+build:
+  verbosity: detailed
+
+configuration: Release
+
+init: []
+
+######################
+# Installation Steps #
+######################
+install:
+  - mkdir C:\projects\deps
+  - cd C:\projects\deps
+
+  # Install a recent CMake
+  - set CMAKE_URL="https://cmake.org/files/v3.9/cmake-3.9.4-win64-x64.zip"
+  - appveyor DownloadFile %CMAKE_URL% -FileName cmake.zip
+  - 7z x cmake.zip -oC:\projects\deps\cmake > nul
+  - set PATH=C:\projects\deps\cmake\bin;%PATH%
+  - cmake --version
+
+  # Download Catch
+  - set CATCH_DIR=%cd%\catch\include
+  - mkdir %CATCH_DIR%
+  - appveyor DownloadFile https://github.com/catchorg/Catch2/releases/download/v2.0.1/catch.hpp -FileName %CATCH_DIR%\catch.hpp
+
+#####################
+# Update Submodules #
+#####################
+before_build:
+  - cd "C:\projects\bit-concurrency"
+  - git submodule init
+  - git submodule update
+
+##############
+# Build Step #
+##############
+build_script:
+  - mkdir build
+  - cd build
+  - SET GEN="Visual Studio 15 2017"
+  - cmake .. -G%GEN% -DCMAKE_BUILD_TYPE=%CONFIGURATION% -DCMAKE_INCLUDE_PATH=%CATCH_DIR% -DBIT_CONCURRENCY_COMPILE_UNIT_TESTS=On -DBIT_CONCURRENCY_COMPILE_HEADER_SELF_CONTAINMENT_TESTS=on
+  - cmake --build . --config %CONFIGURATION%
+
+#############
+# Test Step #
+#############
+test_script:
+  - SET CTEST_OUTPUT_ON_FAILURE=1
+  - ctest -C %CONFIGURATION%
