@@ -60,10 +60,11 @@ make_version_header("${CMAKE_CURRENT_BINARY_DIR}/include/bit/concurrency/version
 )
 
 set(inline_headers
-
+  include/bit/concurrency/locks/detail/null_mutex.inl
 )
 
 set(headers
+  include/bit/concurrency/locks/null_mutex.hpp
   include/bit/concurrency/locks/shared_mutex.hpp
 )
 
@@ -91,8 +92,6 @@ set(source_files
 
 add_library(concurrency ${source_files} ${headers} ${inline_headers})
 add_library(bit::concurrency ALIAS concurrency)
-
-target_link_libraries(concurrency PUBLIC bit::stl bit::memory)
 
 target_include_directories(concurrency PUBLIC
   $<BUILD_INTERFACE:${CMAKE_CURRENT_LIST_DIR}/include>
