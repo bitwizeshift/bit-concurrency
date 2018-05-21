@@ -64,7 +64,7 @@ set(inline_headers
 )
 
 set(headers
-
+  include/bit/concurrency/locks/shared_mutex.hpp
 )
 
 if( WIN32 )
