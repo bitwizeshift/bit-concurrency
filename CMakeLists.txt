@@ -68,6 +68,7 @@ set(headers
   include/bit/concurrency/locks/null_mutex.hpp
   include/bit/concurrency/locks/semaphore.hpp
   include/bit/concurrency/locks/shared_mutex.hpp
+  include/bit/concurrency/locks/spin_lock.hpp
 )
 
 if( WIN32 )
@@ -87,6 +88,7 @@ else()
 endif()
 
 set(source_files
+  src/bit/concurrency/locks/spin_lock.cpp
 
   # concurrency-specific
   ${platform_source_files}
