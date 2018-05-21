@@ -67,6 +67,7 @@ set(inline_headers
   include/bit/concurrency/locks/detail/null_mutex.inl
   include/bit/concurrency/locks/detail/semaphore.inl
   include/bit/concurrency/locks/detail/spinning_semaphore.inl
+  include/bit/concurrency/locks/detail/waitable_event.inl
 )
 
 set(headers
@@ -79,6 +80,7 @@ set(headers
   include/bit/concurrency/locks/shared_mutex.hpp
   include/bit/concurrency/locks/spin_lock.hpp
   include/bit/concurrency/locks/spinning_semaphore.hpp
+  include/bit/concurrency/locks/waitable_event.hpp
 )
 
 if( WIN32 )
