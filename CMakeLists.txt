@@ -60,12 +60,20 @@ make_version_header("${CMAKE_CURRENT_BINARY_DIR}/include/bit/concurrency/version
 )
 
 set(inline_headers
+  # Utilities
+  include/bit/concurrency/utilities/detail/unlock_guard.inl
+
+  # Locks
   include/bit/concurrency/locks/detail/null_mutex.inl
   include/bit/concurrency/locks/detail/semaphore.inl
   include/bit/concurrency/locks/detail/spinning_semaphore.inl
-  )
+)
 
 set(headers
+  # Utilites
+  include/bit/concurrency/utilities/unlock_guard.hpp
+
+  # Locks
   include/bit/concurrency/locks/null_mutex.hpp
   include/bit/concurrency/locks/semaphore.hpp
   include/bit/concurrency/locks/shared_mutex.hpp
