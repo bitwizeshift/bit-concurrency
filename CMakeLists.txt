@@ -96,8 +96,11 @@ set(source_files
   ${platform_source_files}
 )
 
+include(GroupSourceTree)
+
 add_library(concurrency ${source_files} ${headers} ${inline_headers})
 add_library(bit::concurrency ALIAS concurrency)
+group_source_tree("${CMAKE_CURRENT_LIST_DIR}" ${source_files} ${headers} ${inline_headers})
 
 target_include_directories(concurrency PUBLIC
   $<BUILD_INTERFACE:${CMAKE_CURRENT_LIST_DIR}/include>
