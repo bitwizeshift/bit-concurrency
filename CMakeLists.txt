@@ -61,24 +61,26 @@ make_version_header("${CMAKE_CURRENT_BINARY_DIR}/include/bit/concurrency/version
 
 set(inline_headers
   include/bit/concurrency/locks/detail/null_mutex.inl
-)
+  include/bit/concurrency/locks/detail/semaphore.inl
+  )
 
 set(headers
   include/bit/concurrency/locks/null_mutex.hpp
+  include/bit/concurrency/locks/semaphore.hpp
   include/bit/concurrency/locks/shared_mutex.hpp
 )
 
 if( WIN32 )
   set(platform_source_files
-
+    src/bit/concurrency/locks/win32/semaphore.cpp
   )
 elseif( UNIX )
   set(platform_source_files
-
+    src/bit/concurrency/locks/posix/semaphore.cpp
   )
 elseif( APPLE )
   set(platform_source_files
-
+    src/bit/concurrency/locks/mac/semaphore.cpp
   )
 else()
   message(FATAL_ERROR "unknown or unsupported target concurrency")
